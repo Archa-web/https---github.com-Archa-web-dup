@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Login.css"; // Custom styles
+import "animate.css";
+
 
 const Login = () => {
     const navigate = useNavigate();
@@ -56,50 +58,51 @@ const Login = () => {
     };
 
     return (
-        <div className="container-fluid d-flex flex-column align-items-center justify-content-center">
-            <header className="d-flex justify-content-between w-100 p-3">
-                <h4 className="mb-5 fw-bold">Game Addiction Control</h4>
+        <div className="container-fluid vh-100 bg-light animate__animated animate__fadeIn position-relative animate__slower animate__delay-1s">
+            <header className="position-absolute top-0 start-0 m-4 animate__animated animate__bounceInLeft animate__delay-2s">
+                <h1 className="fw-bold text-dark">Game Addiction Control</h1>
             </header>
-            <div className="d-flex justify-content-center align-items-center w-100">
-                <div className="register-info me-5">
+            <div className="d-flex flex-row align-items-center justify-content-center h-100">
+                <div className="me-5 animate__animated animate__fadeInLeft animate__slow animate__delay-1s">
                     <h2 className="fw-bold">Login</h2>
-                    <p>Sign in now to be a part of our healthy gaming community</p>
+                    <p className="animate__animated animate__pulse animate__infinite">Sign In now to be a part of our healthy gaming community</p>
                 </div>
-                <form className="login-box p-4 shadow rounded bg-white" onSubmit={handleLogin}>
-                    <div className="mb-3">
-                        <label className="form-label">Email or Username</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter your email or username"
-                            name="usernameOrEmail"
-                            value={formData.usernameOrEmail}
+                <div className="card p-4 shadow-lg rounded bg-white text-dark animate__animated animate__fadeInRight animate__slow animate__delay-1s" style={{ width: "25rem" }}>
+                    <form onSubmit={handleLogin}>
+                        <div className="mb-3 animate__animated animate__zoomIn animate__delay-1s">
+                            <label className="form-label fw-bold" style={{ fontSize: "1.4rem" }}>Email/Username</label>
+                            <input
+                                type="text"
+                                className="form-control animate__animated animate__pulse animate__infinite"
+                                placeholder="Enter your email or username"
+                                name="usernameOrEmail"
+                                value={formData.usernameOrEmail}
                             onChange={handleChange}
                             required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Password</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            placeholder="Enter your password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="text-start mb-3">
-                        <a href="#" className="text-decoration-none">Forgot password?</a>
-                    </div>
-                    <div className="d-flex justify-content-between">
-                        <button type="button" className="btn btn-outline-dark w-45" onClick={() => navigate("/register")}>
-                            Sign Up
-                        </button>
-                        <button type="submit" className="btn btn-dark w-45">Log In</button>
-                    </div>
-                </form>
+                            />
+                        </div>
+                        <div className="mb-3 animate__animated animate__zoomIn animate__delay-1s">
+                            <label className="form-label fw-bold">Password</label>
+                            <input
+                                type="password"
+                                className="form-control animate__animated animate__pulse animate__infinite"
+                                placeholder="Enter your password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="text-start mb-3 animate__animated animate__fadeIn animate__delay-2s">
+                            <a href="#" className="text-decoration-none text-primary">Forgot password?</a>
+                        </div>
+                        <div className="d-flex gap-2 animate__animated animate__fadeInUp animate__delay-2s">
+                            <button type="button" className="btn btn-outline-dark animate__animated animate__rubberBand animate__delay-3s" onClick={() => navigate("/register")}>
+                                Sign Up</button>
+                            <button type="submit" className="btn btn-dark animate__animated animate__tada animate__delay-3s">Log In</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );

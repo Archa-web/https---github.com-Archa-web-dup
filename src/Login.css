@@ -7,6 +7,10 @@ body {
   {
     font-size: 40px;
   }
+.form-label
+{
+  font-size: 0.9rem;
+}
   
   .w-45 {
     width: 48%;
