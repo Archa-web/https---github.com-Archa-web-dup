@@ -82,7 +82,7 @@ const Login = () => {
                             />
                         </div>
                         <div className="mb-3 animate__animated animate__zoomIn animate__delay-1s">
-                            <label className="form-label fw-bold">Password</label>
+                            <label className="form-label fw-bold"style={{ fontSize: "1.4rem" }}>Password</label>
                             <input
                                 type="password"
                                 className="form-control animate__animated animate__pulse animate__infinite"
