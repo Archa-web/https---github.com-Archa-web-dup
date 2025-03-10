@@ -58,7 +58,7 @@ const Login = () => {
     };
 
     return (
-        <div className="container-fluid vh-100 bg-light animate__animated animate__fadeIn position-relative animate__slower animate__delay-1s">
+        <div className="container-fluid vh-100 bg-light animate__animated animate__fadeIn position-relative animate__slower animate__delay-1s" >
             <header className="position-absolute top-0 start-0 m-4 animate__animated animate__bounceInLeft animate__delay-2s">
                 <h1 className="fw-bold text-dark">Game Addiction Control</h1>
             </header>
