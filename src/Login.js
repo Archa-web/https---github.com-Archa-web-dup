@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Login.css"; // Custom styles
+import "./Login.css"; 
 import "animate.css";
-
 
 const Login = () => {
     const navigate = useNavigate();
@@ -22,6 +21,8 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
 
+        console.log("Submitting login form with data:", formData);
+
         try {
             const response = await fetch("http://localhost:5000/login", {
                 method: "POST",
@@ -31,6 +32,8 @@ const Login = () => {
 
             const data = await response.json();
 
+            console.log("Response from server:", data);
+
             if (response.ok) {
                 Swal.fire({
                     icon: "success",
@@ -39,7 +42,7 @@ const Login = () => {
                     showConfirmButton: true,
                     confirmButtonText: "Continue",
                 }).then(() => {
-                    navigate("/dashboard"); // Redirect after success
+                    navigate("/home"); // Redirect after success
                 });
             } else {
                 Swal.fire({
@@ -49,6 +52,7 @@ const Login = () => {
                 });
             }
         } catch (error) {
+            console.error("Error during login:", error);
             Swal.fire({
                 icon: "error",
                 title: "Error",
@@ -58,7 +62,7 @@ const Login = () => {
     };
 
     return (
-        <div className="container-fluid vh-100 bg-light animate__animated animate__fadeIn position-relative animate__slower animate__delay-1s" >
+        <div className="container-fluid vh-100 bg-light animate__animated animate__fadeIn position-relative animate__slower animate__delay-1s">
             <header className="position-absolute top-0 start-0 m-4 animate__animated animate__bounceInLeft animate__delay-2s">
                 <h1 className="fw-bold text-dark">Game Addiction Control</h1>
             </header>
@@ -77,12 +81,12 @@ const Login = () => {
                                 placeholder="Enter your email or username"
                                 name="usernameOrEmail"
                                 value={formData.usernameOrEmail}
-                            onChange={handleChange}
-                            required
+                                onChange={handleChange}
+                                required
                             />
                         </div>
                         <div className="mb-3 animate__animated animate__zoomIn animate__delay-1s">
-                            <label className="form-label fw-bold"style={{ fontSize: "1.4rem" }}>Password</label>
+                            <label className="form-label fw-bold" style={{ fontSize: "1.4rem" }}>Password</label>
                             <input
                                 type="password"
                                 className="form-control animate__animated animate__pulse animate__infinite"
@@ -98,7 +102,8 @@ const Login = () => {
                         </div>
                         <div className="d-flex gap-2 animate__animated animate__fadeInUp animate__delay-2s">
                             <button type="button" className="btn btn-outline-dark animate__animated animate__rubberBand animate__delay-3s" onClick={() => navigate("/register")}>
-                                Sign Up</button>
+                                Sign Up
+                            </button>
                             <button type="submit" className="btn btn-dark animate__animated animate__tada animate__delay-3s">Log In</button>
                         </div>
                     </form>

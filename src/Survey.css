@@ -1,0 +1,123 @@
+@keyframes slide-in-right {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-out-left {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slide-in-left {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-out-right {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.slide-in-right {
+    animation: slide-in-right 0.3s forwards;
+}
+
+.slide-out-left {
+    animation: slide-out-left 0.3s forwards;
+}
+
+.slide-in-left {
+    animation: slide-in-left 0.3s forwards;
+}
+
+.slide-out-right {
+    animation: slide-out-right 0.3s forwards;
+}
+
+.survey-button {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.survey-button:hover {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+.btn-selected {
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff;
+}
+
+.btn-inverted {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+.btn-inverted:hover {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+}
+
+.btn-outline-light {
+    background-color: transparent;
+    color: #000;
+    border: 1px solid #000;
+}
+
+.btn-outline-light:hover {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+.nav-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.nav-button:hover {
+    background-color: #0056b3;
+}
+
+.warning {
+    color: red;
+    font-size: 1rem;
+    font-weight: bold;
+}

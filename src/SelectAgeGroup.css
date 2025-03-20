@@ -1,0 +1,14 @@
+.select-age-group-container {
+    max-width: 6
+    00px;
+    margin: auto;
+}
+
+.age-slider {
+    width: 80%;
+}
+
+.warning {
+    color: red;
+    font-weight: bold;
+}

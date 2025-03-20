@@ -1,0 +1,19 @@
+.home-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.lead {
+    font-size: 1.25rem;
+    color: #555;
+}
+
+.age-button {
+    width: 200px;
+}
