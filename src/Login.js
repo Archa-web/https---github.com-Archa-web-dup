@@ -43,7 +43,7 @@ const Login = () => {
                     showConfirmButton: true,
                     confirmButtonText: "Continue",
                 }).then(() => {
-                    navigate("/home"); // Redirect after success
+                    navigate("/select-age-group"); // Redirect after success
                 });
             } else {
                 Swal.fire({

@@ -15,9 +15,9 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Login />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/home" element={<Home setAgeGroup={setAgeGroup} />} />
                 <Route path="/select-age-group" element={<SelectAgeGroup setAgeGroup={setAgeGroup} />} />
                 <Route path="/survey" element={<Survey ageGroup={ageGroup} />} />
                 <Route path="/result" element={<Result />} />

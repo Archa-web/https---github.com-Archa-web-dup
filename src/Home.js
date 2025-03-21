@@ -1,24 +1,37 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Home.css'; // Import the custom CSS file
+import { motion } from 'framer-motion';
+import './Home.css';
 
 const Home = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="container text-center mt-5 home-container">
-            <h1 className="mb-4">GameAware</h1>
-            <p className="lead">
-                Welcome to GameAware, a platform dedicated to helping you understand your gaming habits.
-            </p>
-            <p className="motive">
-                Our mission is to provide you with insights into your gaming behavior and help you maintain a healthy balance between gaming and other aspects of your life. 
-                The assessment is based on the criteria defined by the DSM-5 (Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition). 
-                Answer the questions honestly to get an accurate assessment of your gaming habits.
-            </p>
-            <button className="btn btn-lg btn-primary mt-4" onClick={() => navigate("/select-age-group")}>
-                Continue
-            </button>
+        <div className="home-container">
+            <motion.div
+                className="content"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+            >
+                <h1 className="display-3 fw-bold text-light">GameAware</h1>
+                <p className="lead text-secondary">
+                    Understand your gaming habits and maintain a healthy balance.
+                </p>
+                <p className="motive text-light">
+                    Our mission is to provide you with insights into your gaming behavior and help you maintain a healthy balance between gaming and other aspects of life.
+                    The assessment is based on the DSM-5 criteria (Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition).
+                    Answer the questions honestly to receive an accurate assessment.
+                </p>
+                <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="btn btn-lg btn-primary mt-4"
+                    onClick={() => navigate("/login")}
+                >
+                    Start Assessment
+                </motion.button>
+            </motion.div>
         </div>
     );
 };
