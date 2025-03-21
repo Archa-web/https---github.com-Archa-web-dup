@@ -1,14 +1,86 @@
-.select-age-group-container {
-    max-width: 6
-    00px;
-    margin: auto;
+/* SelectAgeGroup.css */
+
+/* Container Styling */
+.container {
+    padding: 20px;
 }
 
+/* Card Styling */
+.card {
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Slider Styling */
 .age-slider {
-    width: 80%;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 12px;
+    border-radius: 6px;
+    background: #e9ecef;
+    outline: none;
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
 }
 
+/* Slider Thumb Styling */
+.age-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    background-color: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.age-slider::-webkit-slider-thumb:hover {
+    background-color: #0056b3;
+}
+
+/* Slider Focus State */
+.age-slider:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 12px rgba(0, 123, 255, 0.5);
+}
+
+/* Button Styling */
+.btn-primary, .btn-outline-secondary {
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-outline-secondary {
+    background-color: #ffffff;
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+/* Warning Message */
 .warning {
-    color: red;
+    color: #dc3545;
+    font-size: 1rem;
     font-weight: bold;
+}
+
+/* Transition Effect */
+button, input {
+    transition: all 0.3s ease;
 }

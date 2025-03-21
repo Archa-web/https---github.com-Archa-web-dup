@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Login.css"; 
+import { Link } from "react-router-dom";
 import "animate.css";
 
 const Login = () => {
@@ -98,7 +99,9 @@ const Login = () => {
                             />
                         </div>
                         <div className="text-start mb-3 animate__animated animate__fadeIn animate__delay-2s">
-                            <a href="#" className="text-decoration-none text-primary">Forgot password?</a>
+                        <Link to="/email-input" className="text-decoration-none text-primary">
+        Forgot password?
+    </Link>
                         </div>
                         <div className="d-flex gap-2 animate__animated animate__fadeInUp animate__delay-2s">
                             <button type="button" className="btn btn-outline-dark animate__animated animate__rubberBand animate__delay-3s" onClick={() => navigate("/register")}>

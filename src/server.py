@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 import re
+import traceback
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all origins
@@ -113,10 +114,33 @@ def get_questions(age_group):
         cur.close()
         return jsonify(formatted_questions), 200
     except Exception as e:
-        import traceback
         print(traceback.format_exc())
         return jsonify({"error": str(e)}), 500
 
+@app.route('/submit', methods=['POST'])
+def submit_survey():
+    try:
+        data = request.get_json()
+        responses = data.get('responses', [])
+
+        if not responses:
+            return jsonify({"error": "No responses provided"}), 400
+
+        total_score = sum(response['score'] for response in responses)
+
+        if total_score <= 15:
+            level = 'Low Addiction'
+        elif total_score <= 30:
+            level = 'Moderate Addiction'
+        elif total_score <= 45:
+            level = 'High Addiction'
+        else:
+            level = 'Severe Addiction'
+
+        return jsonify({"total_score": total_score, "level": level}), 200
+    except Exception as e:
+        print(traceback.format_exc())
+        return jsonify({"error": str(e)}), 500
 
 # ==================== RUN APP ====================
 if __name__ == '__main__':

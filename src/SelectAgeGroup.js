@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./SelectAgeGroup.css"; // Import the custom CSS file
+import "./SelectAgeGroup.css";
 
 const SelectAgeGroup = ({ setAgeGroup }) => {
     const navigate = useNavigate();
-    const [age, setAge] = useState(20); // Default age
+    const [age, setAge] = useState("");
     const [warning, setWarning] = useState("");
+
+    useEffect(() => {
+        if (age !== "") setWarning("");
+    }, [age]);
 
     const determineAgeGroup = (age) => {
         if (age >= 15 && age <= 20) return "15-20";
@@ -15,36 +19,56 @@ const SelectAgeGroup = ({ setAgeGroup }) => {
     };
 
     const handleNext = () => {
-        if (!age) {
-            setWarning("Please select an age before proceeding.");
+        if (age === "") {
+            setWarning("Please enter your age before proceeding.");
+        } else if (age < 15) {
+            setWarning("Age must be 15 or older to proceed.");
+        } else if (age < 0) {
+            setWarning("Age cannot be negative.");
+        } else if (age > 90){
+            setWarning("Age cannot be greater than 90.");
         } else {
             const selectedAgeGroup = determineAgeGroup(age);
             setAgeGroup(selectedAgeGroup);
-            navigate("/survey");
+            navigate("/Survey");
         }
     };
 
     return (
-        <div className="container text-center mt-5 select-age-group-container">
-            <h2 className="mb-4">Select Your Age</h2>
-            <p>Use the slider to select your age:</p>
+        <div className="container d-flex flex-column align-items-center justify-content-center vh-100">
+            <div className="card p-5 shadow-lg w-50 text-center">
+                <h2 className="mb-4 text-primary fw-bold">Enter Your Age</h2>
+                <p className="text-secondary">Please enter your age:</p>
 
-            {/* Age Slider */}
-            <input
-                type="range"
-                min="15"
-                max="80"
-                value={age}
-                className="form-range age-slider"
-                onChange={(e) => setAge(parseInt(e.target.value))}
-            />
-            <p className="mt-2">Selected Age: <strong>{age}</strong></p>
+                {/* Age Input Field */}
+                <input
+                    type="number"
+                    min="0"
+                    className="form-control text-center"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value ? parseInt(e.target.value) : "")}
+                />
 
-            {warning && <div className="warning mt-3">{warning}</div>}
+                {/* Display Real-Time Age Group */}
+                {age >= 15 && (
+                    <p className="text-muted mt-2">
+                        Age Group: <strong className="text-warning">{determineAgeGroup(age)}</strong>
+                    </p>
+                )}
 
-            <button className="btn btn-primary mt-4" onClick={handleNext}>
-                Next
-            </button>
+                {/* Warning Message */}
+                {warning && <div className="warning mt-3">{warning}</div>}
+
+                {/* Action Buttons */}
+                <div className="d-flex justify-content-center mt-4 gap-3">
+                    <button className="btn btn-secondary" onClick={() => navigate(-1)}>
+                        Back
+                    </button>
+                    <button className="btn btn-secondary" onClick={handleNext}>
+                        Next
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };
