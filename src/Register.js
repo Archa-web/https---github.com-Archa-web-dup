@@ -89,7 +89,7 @@ const Register = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h4 className="fw-bold text-light">Game Aware</h4>
+        <h4 className="fw-bold text-light" style={{ fontSize: "2.5rem" }}>Game Aware</h4>
       </motion.header>
       <div className="d-flex justify-content-center align-items-center w-100">
         <motion.div
@@ -98,7 +98,7 @@ const Register = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="fw-bold text-light">Create an Account</h2>
+          <h2 className="fw-bold text-light"style={{ fontSize: "2rem" }}>Create an Account</h2>
           <p className="text-light">Sign up now to be a part of our healthy gaming community</p>
         </motion.div>
         <motion.form
