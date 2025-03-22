@@ -1,18 +1,49 @@
 /* Login.css */
 
-body {
-    background-color: #2a2c2e;
-  }
-  .mb-5
-  {
-    font-size: 40px;
-  }
-.form-label
-{
+.container-fluid {
+  background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
+  
+}
+
+.card-1 {
+  background: rgba(255, 255, 255, 0.15);     
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(10px);              
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.login-box {
+  width: 600px;
+background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
+}
+
+.gradient-background {
+    background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
+    color: white;
+}
+
+.mb-5 {
+  font-size: 40px;
+}
+
+.form-label {
   font-size: 0.9rem;
 }
-  
-  .w-45 {
-    width: 48%;
-  }
-  
+
+.w-45 {
+  width: 48%;
+}
+
+.swal-confirm {
+  transition: transform 0.2s;
+}
+
+.swal-confirm:hover {
+  transform: scale(1.1);
+}
+
+.swal-confirm:active {
+  transform: scale(0.95);
+}

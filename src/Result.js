@@ -36,13 +36,13 @@ const Result = () => {
             transition={{ duration: 0.5, ease: "easeOut" }}
         >
             <motion.div 
-                className="result-card"
+                className="result-card "
                 initial={{ y: -50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
                 <motion.h2 
-                    className="result-title"
+                    className="result-title text-light"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.5 }}
@@ -58,9 +58,9 @@ const Result = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.5 }}
                 >
-                    <h3 className="result-score">Addiction: {percentage}%</h3>
-                    <h4 className="result-level">{level}</h4>
-                    <p className="result-description">{getLevelDescription(level)}</p>
+                    <h3 className="result-score text-light">Addiction: {percentage}%</h3>
+                    <h4 className="result-level text-light">{level}</h4>
+                    <p className="result-description text-light">{getLevelDescription(level)}</p>
                 </motion.div>
 
                 <motion.div 
@@ -70,7 +70,7 @@ const Result = () => {
                     transition={{ delay: 0.5, duration: 0.5 }}
                 >
                     <motion.button 
-                        className="result-btn result-btn-primary"
+                        className="result-btn result-btn-primary text-light"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => navigate("/recommendation", { state: { level } })}
@@ -78,7 +78,7 @@ const Result = () => {
                         View Recommendations
                     </motion.button>
                     <motion.button 
-                        className="result-btn result-btn-secondary"
+                        className="result-btn result-btn-secondary text-light"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => navigate("/select-age-group")}

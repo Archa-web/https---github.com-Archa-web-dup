@@ -65,8 +65,8 @@ const Survey = ({ ageGroup }) => {
                         transition={{ duration: 0.5, ease: "easeInOut" }}
                         className="survey-card"
                     >
-                        <h2 className="card-title">Game Addiction Assessment</h2>
-                        <p className="question-text">{questions[currentIndex].question}</p>
+                        <h2 className="card-title text-light">Game Addiction Assessment</h2>
+                        <p className="question-text text-light">{questions[currentIndex].question}</p>
                         <div className="options-container">
                             {questions[currentIndex].answers.map((a) => (
                                 <button
@@ -80,17 +80,40 @@ const Survey = ({ ageGroup }) => {
                         </div>
                         {warning && <div className="warning">{warning}</div>}
                         <div className="navigation">
-                            <button
-                                className="btn btn-secondary"
-                                disabled={currentIndex === 0}
+                        <motion.button
+                                                            type="button"
+                                                    whileHover={{ scale: 1.1 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    className="btn btn-lg btn-primary mt-4"
+                                                    disabled={currentIndex === 0}
                                 onClick={handleBack}
-                            >
-                                Back
-                            </button>
+                                                   
+                                                >
+                                                  Back
+                                                </motion.button>
+                           
                             {currentIndex === questions.length - 1 ? (
-                                <button className="btn btn-secondary" onClick={handleSubmit}>Submit</button>
+                                <motion.button
+                                                            type="button"
+                                                    whileHover={{ scale: 1.1 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    className="btn btn-lg btn-primary mt-4"
+                                                    onClick={handleSubmit}
+                                                >
+                                                  Submit
+                                                </motion.button>
                             ) : (
-                                <button className="btn btn-secondary" onClick={handleNext}>Next</button>
+                                <motion.button
+                                                            type="button"
+                                                    whileHover={{ scale: 1.1 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    className="btn btn-lg btn-primary mt-4"
+                                                    onClick={handleNext}
+                                                >
+                                                  Next
+                                                </motion.button>
+                                
+                               
                             )}
                         </div>
                     </motion.div>

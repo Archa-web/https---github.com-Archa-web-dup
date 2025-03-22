@@ -5,6 +5,8 @@
     justify-content: center;
     background: #f8f9fa;
     color: #000;
+    background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
+
 }
 
 .result-card {
@@ -16,6 +18,8 @@
     max-width: 600px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
+
 }
 
 .result-card:hover {

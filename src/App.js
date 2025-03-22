@@ -7,6 +7,8 @@ import Home from "./Home";
 import SelectAgeGroup from "./SelectAgeGroup";
 import Survey from "./Survey";
 import Result from "./Result";
+import Recommendation from './Recommendation';
+
 
 
 function App() {
@@ -21,6 +23,7 @@ function App() {
                 <Route path="/select-age-group" element={<SelectAgeGroup setAgeGroup={setAgeGroup} />} />
                 <Route path="/survey" element={<Survey ageGroup={ageGroup} />} />
                 <Route path="/result" element={<Result />} />
+                <Route path="/recommendation" element={<Recommendation />} />
                 </Routes>
         </Router>
     );

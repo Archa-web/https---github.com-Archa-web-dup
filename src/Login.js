@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Login.css"; 
 import { Link } from "react-router-dom";
+import { motion } from 'framer-motion';
 import "animate.css";
 
 const Login = () => {
@@ -37,12 +38,16 @@ const Login = () => {
 
             if (response.ok) {
                 Swal.fire({
-                    icon: "success",
                     title: "Login Successful!",
                     text: "Welcome to the gaming community!",
                     showConfirmButton: true,
                     confirmButtonText: "Continue",
-                }).then(() => {
+                    customClass: {
+                        popup: 'gradient-background' ,// Add custom class for background
+                        confirmButton: 'btn btn-lg btn-primary mt-4' // Add custom class for confirm button
+                        
+                    },
+                    iconHtml: '<i class="fas fa-check-circle" style="color: #00FF00;"></i>'                }).then(() => {
                     navigate("/select-age-group"); // Redirect after success
                 });
             } else {
@@ -50,6 +55,9 @@ const Login = () => {
                     icon: "error",
                     title: "Login Failed",
                     text: data.error || "Invalid username/email or password",
+                    customClass: {
+                        popup: 'gradient-background' // Add custom class for background
+                    }
                 });
             }
         } catch (error) {
@@ -58,22 +66,25 @@ const Login = () => {
                 icon: "error",
                 title: "Error",
                 text: "Something went wrong. Please try again later.",
+                customClass: {
+                    popup: 'gradient-background' // Add custom class for background
+                }
             });
         }
     };
 
     return (
-        <div className="container-fluid vh-100 bg-light animate__animated animate__fadeIn position-relative animate__slower animate__delay-1s">
+        <div className="container-fluid vh-100 animate__animated animate__fadeIn position-relative animate__slower animate__delay-0.5s" style={{backgroundImage: 'linear-gradient(to right, #1c1c1c, #2c3e50)'}}>
             <header className="position-absolute top-0 start-0 m-4 animate__animated animate__bounceInLeft animate__delay-2s">
-                <h1 className="fw-bold text-dark">Game Addiction Control</h1>
+                <h1 className="fw-bold text-light" style={{ fontSize: "2.8rem" }}>Game Aware</h1>
             </header>
             <div className="d-flex flex-row align-items-center justify-content-center h-100">
                 <div className="me-5 animate__animated animate__fadeInLeft animate__slow animate__delay-1s">
-                    <h2 className="fw-bold">Login</h2>
-                    <p className="animate__animated animate__pulse animate__infinite">Sign In now to be a part of our healthy gaming community</p>
+                    <h2 className="fw-bold text-light " style={{ fontSize: "2.5rem" }}>Login</h2>
+                    <p className="animate__animated text-light animate__pulse animate__infinite">Sign In now to be a part of our healthy gaming community</p>
                 </div>
-                <div className="card p-4 shadow-lg rounded bg-white text-dark animate__animated animate__fadeInRight animate__slow animate__delay-1s" style={{ width: "25rem" }}>
-                    <form onSubmit={handleLogin}>
+                <div className="login-box card-1 p-4 shadow-lg rounded text-light animate__animated animate__fadeInRight animate__slow animate__delay-1s" style={{ width: "25rem" }}>
+                    <form className="form-login" onSubmit={handleLogin}>
                         <div className="mb-3 animate__animated animate__zoomIn animate__delay-1s">
                             <label className="form-label fw-bold" style={{ fontSize: "1.4rem" }}>Email/Username</label>
                             <input
@@ -99,15 +110,28 @@ const Login = () => {
                             />
                         </div>
                         <div className="text-start mb-3 animate__animated animate__fadeIn animate__delay-2s">
-                        <Link to="/email-input" className="text-decoration-none text-primary">
-        Forgot password?
-    </Link>
+                            <Link to="/email-input" className="text-decoration-none text-primary">
+                                Forgot password?
+                            </Link>
                         </div>
                         <div className="d-flex gap-2 animate__animated animate__fadeInUp animate__delay-2s">
-                            <button type="button" className="btn btn-outline-dark animate__animated animate__rubberBand animate__delay-3s" onClick={() => navigate("/register")}>
+                            <motion.button
+                                type="button"
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="btn btn-lg btn-primary mt-4"
+                                onClick={() => navigate("/register")}
+                            >
                                 Sign Up
-                            </button>
-                            <button type="submit" className="btn btn-dark animate__animated animate__tada animate__delay-3s">Log In</button>
+                            </motion.button>
+                            <motion.button
+                                type="submit"
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="btn btn-lg btn-primary mt-4"
+                            >
+                                Login
+                            </motion.button>
                         </div>
                     </form>
                 </div>

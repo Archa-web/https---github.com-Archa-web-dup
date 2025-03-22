@@ -15,6 +15,7 @@ const Home = () => {
                 transition={{ duration: 0.8, ease: 'easeOut' }}
             >
                 <h1 className="display-3 fw-bold text-light">GameAware</h1>
+                <i className="bi bi-controller display-4 text-secondary"></i>
                 <p className="lead text-secondary">
                     Understand your gaming habits and maintain a healthy balance.
                 </p>

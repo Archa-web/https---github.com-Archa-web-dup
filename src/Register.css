@@ -1,14 +1,28 @@
-body {
-    background-color: #f8f9fa;
-  }
 
+.container-fluid {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, #141E30, #243B55);
+  padding: 20px;
+}
   .fw-bold{
-font-size: 40px;  }
+font-size: 40px;  
+}
   .register-info {
     max-width: 350px;
   }
   
   .register-box {
     width: 400px;
+background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
   }
   
+.modal-header,
+.modal-body,
+.modal-footer
+{
+  background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
+}

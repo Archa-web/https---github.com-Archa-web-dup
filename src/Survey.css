@@ -7,6 +7,8 @@
     justify-content: center;
     background-color: #fff;
     color: #000;
+
+  background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
 }
 
 .survey-card {
@@ -17,6 +19,7 @@
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
+    background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
 }
 
 .card-title {
@@ -45,14 +48,15 @@
     font-size: 1rem;
     border-radius: 8px;
     background-color: #f8f9fa;
-    color: #212529;
-    border: 1px solid #ced4da;
+    color: #e7eef5;
     cursor: pointer;
     transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Semi-transparent border */
 }
 
 .option-btn:hover {
-    background-color: #d6d8db; /* Darker than previous #e9ecef */
+    background-color: #2e525a; /* Darker than previous #e9ecef */
 }
 
 

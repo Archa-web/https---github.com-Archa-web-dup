@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SelectAgeGroup.css";
+import { motion } from 'framer-motion';
 
 const SelectAgeGroup = ({ setAgeGroup }) => {
     const navigate = useNavigate();
@@ -35,41 +36,114 @@ const SelectAgeGroup = ({ setAgeGroup }) => {
     };
 
     return (
-        <div className="container d-flex flex-column align-items-center justify-content-center vh-100">
-            <div className="card p-5 shadow-lg w-50 text-center">
-                <h2 className="mb-4 text-primary fw-bold">Enter Your Age</h2>
-                <p className="text-secondary">Please enter your age:</p>
+        <motion.div
+            className="container-fluid d-flex flex-column align-items-center justify-content-center vh-100"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+        >
+            <motion.div
+                className="age-box card p-5 shadow-lg w-50 text-center"
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5 }}
+            >
+                <motion.h1
+                    className="title text-light fw-bold"
+                    style={{ fontSize: "3rem" }}
+                    initial={{ opacity: 0, y: -50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1 }}
+                >
+                    Game Aware
+                </motion.h1>
+                <motion.i
+                    className="bi bi-controller display-4 text-secondary"
+                    initial={{ opacity: 0, rotate: -180 }}
+                    animate={{ opacity: 1, rotate: 0 }}
+                    transition={{ duration: 1 }}
+                ></motion.i>
+                <motion.h2
+                    className="mb-4 text-light fw-bold"
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 1 }}
+                >
+                    Enter Your Age
+                </motion.h2>
+                <motion.p
+                    className="text-light"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1, delay: 0.5 }}
+                >
+                    Please enter your age:
+                </motion.p>
 
                 {/* Age Input Field */}
-                <input
+                <motion.input
                     type="number"
                     min="0"
                     className="form-control text-center"
                     value={age}
                     onChange={(e) => setAge(e.target.value ? parseInt(e.target.value) : "")}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1, delay: 1 }}
                 />
 
                 {/* Display Real-Time Age Group */}
                 {age >= 15 && (
-                    <p className="text-muted mt-2">
+                    <motion.p
+                        className="text-light mt-2"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                   
+                    >
                         Age Group: <strong className="text-warning">{determineAgeGroup(age)}</strong>
-                    </p>
+                    </motion.p>
                 )}
 
                 {/* Warning Message */}
-                {warning && <div className="warning mt-3">{warning}</div>}
+                {warning && (
+                    <motion.div
+                        className="warning mt-3"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1, delay: 1 }}
+                    >
+                        {warning}
+                    </motion.div>
+                )}
 
                 {/* Action Buttons */}
-                <div className="d-flex justify-content-center mt-4 gap-3">
-                    <button className="btn btn-secondary" onClick={() => navigate(-1)}>
+                <motion.div
+                    className="d-flex justify-content-center mt-4 gap-3"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1, delay: 1.5 }}
+                >
+                    <motion.button
+                        type="button"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="btn btn-lg btn-primary mt-4"
+                        onClick={() => navigate(-1)}
+                    >
                         Back
-                    </button>
-                    <button className="btn btn-secondary" onClick={handleNext}>
+                    </motion.button>
+                    <motion.button
+                        type="button"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="btn btn-lg btn-primary mt-4"
+                        onClick={handleNext}
+                    >
                         Next
-                    </button>
-                </div>
-            </div>
-        </div>
+                    </motion.button>
+                </motion.div>
+            </motion.div>
+        </motion.div>
     );
 };
 
