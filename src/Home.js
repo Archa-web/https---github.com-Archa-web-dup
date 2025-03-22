@@ -14,7 +14,7 @@ const Home = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: 'easeOut' }}
             >
-                <h1 className="display-3 fw-bold text-light">GameAware</h1>
+                <h1 className="display-3 fw-bold text-light" style={{ fontSize: "2.8rem" }}>GameAware</h1>
                 <i className="bi bi-controller display-4 text-secondary"></i>
                 <p className="lead text-secondary">
                     Understand your gaming habits and maintain a healthy balance.

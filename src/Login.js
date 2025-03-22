@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Login.css"; 
+import "./Login.css";
 import { Link } from "react-router-dom";
 import { motion } from 'framer-motion';
 import "animate.css";
@@ -13,17 +13,36 @@ const Login = () => {
         usernameOrEmail: "",
         password: "",
     });
+    const [errors, setErrors] = useState({});
+
+    // Function to validate input fields
+    const validateForm = () => {
+        let errors = {};
+        if (!formData.usernameOrEmail.trim()) errors.usernameOrEmail = "Username or Email is required";
+        if (!formData.password.trim()) errors.password = "Password is required";
+
+        setErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
 
     // Handle input changes
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+
+        // Remove error as soon as the field is valid
+        setErrors((prevErrors) => {
+            const newErrors = { ...prevErrors };
+            if (name === "usernameOrEmail" && value.trim()) delete newErrors.usernameOrEmail;
+            if (name === "password" && value.trim()) delete newErrors.password;
+            return newErrors;
+        });
     };
 
     // Handle login form submission
     const handleLogin = async (e) => {
         e.preventDefault();
-
-        console.log("Submitting login form with data:", formData);
+        if (!validateForm()) return;
 
         try {
             const response = await fetch("http://localhost:5000/login", {
@@ -34,30 +53,26 @@ const Login = () => {
 
             const data = await response.json();
 
-            console.log("Response from server:", data);
-
             if (response.ok) {
                 Swal.fire({
                     title: "Login Successful!",
                     text: "Welcome to the gaming community!",
-                    showConfirmButton: true,
                     confirmButtonText: "Continue",
                     customClass: {
-                        popup: 'gradient-background' ,// Add custom class for background
-                        confirmButton: 'btn btn-lg btn-primary mt-4' // Add custom class for confirm button
-                        
-                    },
-                    iconHtml: '<i class="fas fa-check-circle" style="color: #00FF00;"></i>'                
+                        popup: 'gradient-background',
+                        confirmButton: 'btn btn-lg btn-primary mt-4'
+                    }
                 }).then(() => {
-                        navigate('/dashboard'); // Redirect after success
+                    navigate('/dashboard');
                 });
             } else {
+                setErrors(data.errors || {});
                 Swal.fire({
                     icon: "error",
                     title: "Login Failed",
                     text: data.error || "Invalid username/email or password",
                     customClass: {
-                        popup: 'gradient-background' // Add custom class for background
+                        popup: 'gradient-background'
                     }
                 });
             }
@@ -68,21 +83,21 @@ const Login = () => {
                 title: "Error",
                 text: "Something went wrong. Please try again later.",
                 customClass: {
-                    popup: 'gradient-background' // Add custom class for background
+                    popup: 'gradient-background'
                 }
             });
         }
     };
 
     return (
-        <div className="container-fluid vh-100 animate__animated animate__fadeIn position-relative animate__slower animate__delay-0.5s" style={{backgroundImage: 'linear-gradient(to right, #1c1c1c, #2c3e50)'}}>
+        <div className="container-fluid vh-100 animate__animated animate__fadeIn position-relative animate__slower animate__delay-0.5s" style={{ backgroundImage: 'linear-gradient(to right, #1c1c1c, #2c3e50)' }}>
             <header className="position-absolute top-0 start-0 m-4 animate__animated animate__bounceInLeft animate__delay-2s">
                 <h1 className="fw-bold text-light" style={{ fontSize: "2.8rem" }}>Game Aware</h1>
             </header>
             <div className="d-flex flex-row align-items-center justify-content-center h-100">
                 <div className="me-5 animate__animated animate__fadeInLeft animate__slow animate__delay-1s">
                     <h2 className="fw-bold text-light " style={{ fontSize: "2.5rem" }}>Login</h2>
-                    <p className="animate__animated text-light animate__pulse animate__infinite">Sign In now to be a part of our healthy gaming community</p>
+                    <p className="animate__animated text-light animate__pulse animate__infinite">Sign in now to be a part of our healthy gaming community</p>
                 </div>
                 <div className="login-box card-1 p-4 shadow-lg rounded text-light animate__animated animate__fadeInRight animate__slow animate__delay-1s" style={{ width: "25rem" }}>
                     <form className="form-login" onSubmit={handleLogin}>
@@ -90,30 +105,28 @@ const Login = () => {
                             <label className="form-label fw-bold" style={{ fontSize: "1.4rem" }}>Email/Username</label>
                             <input
                                 type="text"
-                                className="form-control animate__animated animate__pulse animate__infinite"
+                                className="form-control"
                                 placeholder="Enter your email or username"
                                 name="usernameOrEmail"
                                 value={formData.usernameOrEmail}
                                 onChange={handleChange}
-                                required
                             />
+                            {errors.usernameOrEmail && <p className="text-danger">{errors.usernameOrEmail}</p>}
                         </div>
                         <div className="mb-3 animate__animated animate__zoomIn animate__delay-1s">
                             <label className="form-label fw-bold" style={{ fontSize: "1.4rem" }}>Password</label>
                             <input
                                 type="password"
-                                className="form-control animate__animated animate__pulse animate__infinite"
+                                className="form-control"
                                 placeholder="Enter your password"
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                required
                             />
+                            {errors.password && <p className="text-danger">{errors.password}</p>}
                         </div>
                         <div className="text-start mb-3 animate__animated animate__fadeIn animate__delay-2s">
-                            <Link to="/email-input" className="text-decoration-none text-primary">
-                                Forgot password?
-                            </Link>
+                            <Link to="/email-input" className="text-decoration-none text-primary">Forgot password?</Link>
                         </div>
                         <div className="d-flex gap-2 animate__animated animate__fadeInUp animate__delay-2s">
                             <motion.button

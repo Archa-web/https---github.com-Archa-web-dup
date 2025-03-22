@@ -72,11 +72,22 @@ def register():
 
     return jsonify({"message": "Registration successful! Redirecting to login..."}), 201
 
+
+
 @app.route("/login", methods=["POST"])
 def user_login():
     data = request.json
     username_or_email = data.get("usernameOrEmail", "").strip()
-    password = data.get("password", "")
+    password = data.get("password", "").strip()
+
+    errors = {}
+    if not username_or_email:
+        errors["usernameOrEmail"] = "Username or Email is required"
+    if not password:
+        errors["password"] = "Password is required"
+
+    if errors:
+        return jsonify({"errors": errors}), 400  # HTTP 400 for validation errors
 
     user = User.query.filter((User.username == username_or_email) | (User.email == username_or_email)).first()
     if not user or not check_password_hash(user.password_hash, password):
@@ -87,6 +98,7 @@ def user_login():
     db.session.commit()
 
     return jsonify({"message": "Login successful!", "username": user.username}), 200
+
 
 # ==================== GAME ADDICTION SURVEY ROUTES ====================
 @app.route('/gaming/questions/<age_group>', methods=['GET'])
