@@ -25,7 +25,13 @@ const Register = () => {
     // ✅ Remove error as soon as the field is valid
     setErrors((prevErrors) => {
       const newErrors = { ...prevErrors };
-      if (name === "fullName" && value.trim()) delete newErrors.fullName;
+      if (name === "fullName") {
+        if (value.trim() && /^[a-zA-Z\s]*$/.test(value)) {
+          delete newErrors.fullName;
+        } else {
+          newErrors.fullName = "Full Name must contain only letters and spaces";
+        }
+      }
       if (name === "email" && value.includes("@")) delete newErrors.email;
       if (name === "username" && value.trim()) delete newErrors.username;
       if (name === "password" && validatePassword(value)) delete newErrors.password;
