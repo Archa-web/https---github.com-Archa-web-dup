@@ -138,6 +138,7 @@ const ChatBot = ({ level, doctor = null }) => {
 
   return (
     <div className="chatbot-container">
+      
       {/* Chatbot button */}
       <button 
         className={`chatbot-button ${isOpen ? 'active' : ''}`}
