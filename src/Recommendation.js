@@ -445,9 +445,9 @@ const Recommendation = () => {
 
         {/* Navigation Buttons */}
         <div className="d-flex justify-content-center gap-3 mt-4 flex-wrap">
-          <button className="recommendation-btn recommendation-btn-outline d-flex align-items-center gap-2" onClick={() => navigate("/")}>
+          <button className="recommendation-btn recommendation-btn-outline d-flex align-items-center gap-2" onClick={() => navigate("/dashboard")}>
             <i className="bi bi-house-door-fill"></i>
-            Home
+            Dashboard
           </button>
           <button className="recommendation-btn recommendation-btn-primary d-flex align-items-center gap-2" onClick={() => window.history.back()}>
             <i className="bi bi-arrow-left-circle-fill"></i>
