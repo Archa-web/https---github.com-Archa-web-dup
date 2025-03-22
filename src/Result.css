@@ -1,57 +1,28 @@
+/* Only keeping custom styles that can't be replaced by Bootstrap */
 .result-container {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f8f9fa;
-    color: #000;
-    background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
-
+    min-height: 100vh;
+    background-image: linear-gradient(to right, #141E30, #243B55);
+    color: #e0e0e0;
 }
 
 .result-card {
-    background: #ffffff; 
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    width: 100%;
-    max-width: 600px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
-
-}
-
-.result-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    background: rgba(28, 36, 47, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
 }
 
 .result-title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #000000;
+    color: #cfd8dc;
 }
 
 .result-score {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-top: 10px;
-    color: #333333;
+    color: #ffd700;
 }
 
 .result-level {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #555555;
-    margin-bottom: 15px;
+    color: #ffb74d;
 }
 
-.result-description {
-    font-size: 1rem;
-    color: #444444;
-    line-height: 1.6;
-}
 
 .result-buttons {
     margin-top: 20px;
@@ -90,4 +61,37 @@
 .result-btn-secondary:hover {
     background: #000000;
     color: #ffffff;
+}
+
+/* Loading animation */
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+.loading-text {
+    animation: pulse 1.5s infinite;
+}
+
+/* Page transition animations - keeping these for Framer Motion */
+.page-transition-enter {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.page-transition-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.page-transition-exit {
+    opacity: 1;
+}
+
+.page-transition-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 300ms, transform 300ms;
 }

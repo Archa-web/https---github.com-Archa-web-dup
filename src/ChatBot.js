@@ -149,7 +149,7 @@ const ChatBot = ({ level, doctor = null }) => {
       {/* Chatbot dialog */}
       <div className={`chatbot-dialog ${isOpen ? 'open' : ''}`}>
         <div className="chatbot-header">
-          <h3>Gaming Addiction Assistant</h3>
+          <h3 className='fw-bold'>Gaming Addiction Assistant</h3>
         </div>
         <div className="chatbot-messages">
           {messages.map((message, index) => (

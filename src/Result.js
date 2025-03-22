@@ -1,117 +1,173 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Result.css';
 
 const Result = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { total_score, level, responses, age_group } = location.state || { 
-        total_score: 0, 
-        level: "Unknown",
-        responses: [],
-        age_group: "Adult"
-    };
+    const { total_score, level } = location.state || { total_score: 0, level: "Unknown" };
+    const [loading, setLoading] = useState(true);
+    const [displayPercentage, setDisplayPercentage] = useState(0);
 
-    const maxScore = 60;
-    const percentage = ((total_score / maxScore) * 100).toFixed(2);
-    
-    // Store the result in the database when component mounts
-    useEffect(() => {
-        const storeResult = async () => {
-            try {
-                // Get user_id from localStorage (assuming it was stored during login)
-                const user_id = localStorage.getItem('user_id');
-                
-                if (!user_id) {
-                    console.error('User ID not found. Please login again.');
-                    return;
-                }
-                
-                const response = await fetch('/submit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        responses: responses,
-                        user_id: parseInt(user_id),
-                        age_group: age_group
-                    })
-                });
-                
-                if (!response.ok) {
-                    throw new Error('Failed to store assessment result');
-                }
-                
-                console.log('Assessment result stored successfully');
-            } catch (error) {
-                console.error('Error storing assessment result:', error);
-            }
-        };
-        
-        if (responses && responses.length > 0) {
-            storeResult();
-        }
-    }, [responses, age_group]);
+    const percentage = ((total_score / 60) * 100).toFixed(2);
 
     const getLevelDescription = (level) => {
         switch (level) {
-            case "Low Addiction":
-                return "You have a balanced approach to gaming. Keep it up!";
-            case "Moderate Addiction":
-                return "You might be gaming a bit too much. Try to take regular breaks.";
-            case "High Addiction":
-                return "Gaming is affecting other areas of your life. It's time to cut down.";
-            case "Severe Addiction":
-                return "Gaming is heavily impacting your daily life. Seeking help is recommended.";
-            default:
-                return "We couldn't determine a specific recommendation. Please consult an expert.";
+            case "Low Addiction": return "You have a balanced approach to gaming. Keep it up!";
+            case "Moderate Addiction": return "You might be gaming a bit too much. Take regular breaks.";
+            case "High Addiction": return "Gaming is impacting your life. Time to cut down.";
+            case "Severe Addiction": return "Gaming is heavily impacting your life. Seek help.";
+            default: return "No specific recommendation. Please consult an expert.";
+        }
+    };
+
+    useEffect(() => {
+        // Simulate loading time for animation effect
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 800);
+        return () => clearTimeout(timer);
+    }, []);
+
+    // Animate percentage counter
+    useEffect(() => {
+        if (!loading) {
+            const targetValue = parseFloat(percentage);
+            const duration = 1500; // 1.5 seconds
+            const increment = 10; // Update every 10ms
+            const steps = duration / increment;
+            const stepValue = targetValue / steps;
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += stepValue;
+                if (current >= targetValue) {
+                    current = targetValue;
+                    clearInterval(timer);
+                }
+                setDisplayPercentage(current);
+            }, increment);
+            
+            return () => clearInterval(timer);
+        }
+    }, [loading, percentage]);
+
+    // Variants for staggered animations
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                when: "beforeChildren",
+                staggerChildren: 0.2
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: { type: "spring", stiffness: 100 }
         }
     };
 
     return (
         <motion.div 
-            className="result-container"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="result-container d-flex align-items-center justify-content-center p-4 p-md-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
         >
-            <motion.div 
-                className="result-card "
-                initial={{ y: -50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-                <motion.h2 
-                    className="result-title text-light"
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.5 }}
-                >
-                    Your Assessment Result
-                </motion.h2>
-                
-                <hr className="border-secondary opacity-75"/>
-                
+            {loading ? (
+                <div className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '200px' }}>
+                    <div className="spinner-border text-light" style={{ width: '3rem', height: '3rem' }} role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                    <p className="mt-3 loading-text text-light fs-5">Analyzing your results...</p>
+                </div>
+            ) : (
                 <motion.div 
-                    className="mb-4"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.5 }}
+                    className="result-card p-4 p-md-5 w-100"
+                    style={{ maxWidth: '700px' }}
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ 
+                        type: "spring", 
+                        stiffness: 100, 
+                        damping: 10, 
+                        duration: 0.5 
+                    }}
                 >
-                    <h3 className="result-score text-light">Addiction: {percentage}%</h3>
-                    <h4 className="result-level text-light">{level}</h4>
-                    <p className="result-description text-light">{getLevelDescription(level)}</p>
-                </motion.div>
+                    <motion.div 
+                        className="text-center mb-4"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        <motion.h2 className="result-title fs-1 fw-bold mb-3" variants={itemVariants}>Your Assessment Result</motion.h2>
+                        <motion.i 
+                            className="bi bi-controller display-4 text-secondary"
+                            variants={itemVariants}
+                            animate={{ 
+                                rotateZ: [0, -10, 10, -5, 5, 0],
+                                transition: { 
+                                    duration: 1.5,
+                                    delay: 0.5
+                                }
+                            }}
+                        ></motion.i>
+                    </motion.div>
 
-                <motion.div 
+                    <motion.hr 
+                        className="border-secondary opacity-75" 
+                        variants={itemVariants}
+                        initial={{ width: "0%" }}
+                        animate={{ width: "100%" }}
+                        transition={{ duration: 0.8, delay: 0.3 }}
+                    />
+
+                    <motion.h3 
+                        className="result-score fs-2 fw-bold text-center"
+                        variants={itemVariants}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 0.5 }}
+                    >
+                        Addiction: {displayPercentage.toFixed(1)}%
+                    </motion.h3>
+                    
+                    <motion.h4 
+                        className="result-level fs-4 fw-bold text-center mb-3"
+                        variants={itemVariants}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.9 }}
+                    >
+                        {level}
+                    </motion.h4>
+                    
+                    <motion.p 
+                        className="text-light fs-5 lh-lg text-center"
+                        variants={itemVariants}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 1.1 }}
+                    >
+                        {getLevelDescription(level)}
+                    </motion.p>
+
+                    <motion.div 
                     className="result-buttons"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5, duration: 0.5 }}
                 >
-                    <motion.button 
+                        <motion.button 
                         className="result-btn result-btn-primary text-light"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -135,8 +191,9 @@ const Result = () => {
                     >
                         Dashboard
                     </motion.button>
+                    </motion.div>
                 </motion.div>
-            </motion.div>
+            )}
         </motion.div>
     );
 };
