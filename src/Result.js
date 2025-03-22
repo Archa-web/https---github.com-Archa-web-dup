@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,10 +7,52 @@ import './Result.css';
 const Result = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { total_score, level } = location.state || { total_score: 0, level: "Unknown" };
+    const { total_score, level, responses, age_group } = location.state || { 
+        total_score: 0, 
+        level: "Unknown",
+        responses: [],
+        age_group: "Adult"
+    };
 
     const maxScore = 60;
     const percentage = ((total_score / maxScore) * 100).toFixed(2);
+    
+    // Store the result in the database when component mounts
+    useEffect(() => {
+        const storeResult = async () => {
+            try {
+                // Get user_id from localStorage (assuming it was stored during login)
+                const user_id = localStorage.getItem('user_id');
+                
+                if (!user_id) {
+                    console.error('User ID not found. Please login again.');
+                    return;
+                }
+                
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        responses: responses,
+                        user_id: parseInt(user_id),
+                        age_group: age_group
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to store assessment result');
+                }
+                
+                console.log('Assessment result stored successfully');
+            } catch (error) {
+                console.error('Error storing assessment result:', error);
+            }
+        };
+        
+        if (responses && responses.length > 0) {
+            storeResult();
+        }
+    }, [responses, age_group]);
 
     const getLevelDescription = (level) => {
         switch (level) {
