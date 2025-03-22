@@ -8,7 +8,7 @@ import SelectAgeGroup from "./SelectAgeGroup";
 import Survey from "./Survey";
 import Result from "./Result";
 import Recommendation from './Recommendation';
-
+import Dashboard from './Dashboard';
 
 
 function App() {
@@ -24,6 +24,8 @@ function App() {
                 <Route path="/survey" element={<Survey ageGroup={ageGroup} />} />
                 <Route path="/result" element={<Result />} />
                 <Route path="/recommendation" element={<Recommendation />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+
                 </Routes>
         </Router>
     );

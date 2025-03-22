@@ -48,7 +48,7 @@ const Login = () => {
                         
                     },
                     iconHtml: '<i class="fas fa-check-circle" style="color: #00FF00;"></i>'                }).then(() => {
-                    navigate("/select-age-group"); // Redirect after success
+                        navigate('/dashboard'); // Redirect after success
                 });
             } else {
                 Swal.fire({
