@@ -25,7 +25,6 @@ function App() {
                 <Route path="/result" element={<Result />} />
                 <Route path="/recommendation" element={<Recommendation />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-
                 </Routes>
         </Router>
     );

@@ -141,7 +141,7 @@ def submit_survey():
     except Exception as e:
         print(traceback.format_exc())
         return jsonify({"error": str(e)}), 500
-    
+
     
 
 # ==================== RUN APP ====================

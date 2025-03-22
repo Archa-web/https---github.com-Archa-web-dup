@@ -1,146 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import './Dashboard.css';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  const [assessmentHistory, setAssessmentHistory] = useState([]);
-  const [loading, setLoading] = useState(true);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [totalScore, setTotalScore] = useState(0);
+    const [level, setLevel] = useState("Unknown");
 
-  useEffect(() => {
-    // Check if user is logged in
-    const loggedInUser = localStorage.getItem('user');
-    if (!loggedInUser) {
-      // Redirect to login if no user found
-      navigate('/login');
-      return;
-    }
+    useEffect(() => {
+        const fetchSurveyResult = async () => {
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ responses: location.state?.responses || [] })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    setTotalScore(data.total_score);
+                    setLevel(data.level);
+                } else {
+                    console.error("Error fetching survey result:", data.error);
+                }
+            } catch (error) {
+                console.error("Error submitting survey:", error);
+            }
+        };
 
-    try {
-      // Parse user data
-      const userData = JSON.parse(loggedInUser);
-      setUser(userData);
-      
-      // Fetch assessment history (replace with your actual API call)
-      fetchAssessmentHistory(userData.id);
-    } catch (error) {
-      console.error('Error loading user data:', error);
-      navigate('/login');
-    }
-  }, [navigate]);
+        if (location.state?.responses) {
+            fetchSurveyResult();
+        }
+    }, [location.state]);
 
-  const fetchAssessmentHistory = async (userId) => {
-    try {
-      // Replace with your actual API endpoint
-      const response = await fetch(`/api/assessments/${userId}`);
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch assessment history');
-      }
-      
-      const data = await response.json();
-      
-      // Transform data for the chart
-      const formattedData = data.map((assessment, index) => ({
-        name: `Test ${index + 1}`,
-        score: assessment.score,
-        date: new Date(assessment.date).toLocaleDateString()
-      }));
-      
-      setAssessmentHistory(formattedData);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching assessment history:', error);
-      // For demo purposes, generate sample data
-      const sampleData = [
-        { name: 'Test 1', score: 85, date: '01/15/2025' },
-        { name: 'Test 2', score: 92, date: '01/22/2025' },
-        { name: 'Test 3', score: 78, date: '01/29/2025' },
-        { name: 'Test 4', score: 88, date: '02/05/2025' }
-      ];
-      setAssessmentHistory(sampleData);
-      setLoading(false);
-    }
-  };
+    const maxScore = 60;
+    const percentage = ((totalScore / maxScore) * 100).toFixed(2);
 
-  const handleLogout = () => {
-    // Clear user data from localStorage
-    localStorage.removeItem('user');
-    
-    // Redirect to login page
-    navigate('/login');
-  };
-
-  const handleStartNewAssessment = () => {
-    // Redirect to the select age page
-    navigate('/selectage');
-  };
-
-  if (loading) {
-    return <div className="loading">Loading dashboard...</div>;
-  }
-
-  return (
-    <div className="dashboard-container">
-      <header className="dashboard-header">
-        <h1>Assessment Dashboard</h1>
-        <button className="logout-btn" onClick={handleLogout}>Logout</button>
-      </header>
-      
-      <div className="user-info-card">
-        <h2>User Information</h2>
-        <div className="user-details">
-          <p><strong>Name:</strong> {user.name}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>User ID:</strong> {user.id}</p>
-          {/* Add more user details as needed */}
+    return (
+        <div className="container-fluid vh-100 d-flex flex-column align-items-center justify-content-center bg-dark text-light">
+            <h1 className="mb-4">Welcome to Game Aware Dashboard</h1>
+            <p>Explore your personalized gaming experience</p>
+            <h3 className="text-light">Addiction Level: {percentage}%</h3>
+            <h4 className="text-light">{level}</h4>
+            <div className="d-flex gap-3">
+                <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="btn btn-lg btn-primary mt-4"
+                    onClick={() => navigate('/select-age-group')}
+                >
+                    Select Age Group
+                </motion.button>
+                <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="btn btn-lg btn-danger mt-4"
+                    onClick={() => navigate('/home')}
+                >
+                    Logout
+                </motion.button>
+            </div>
         </div>
-      </div>
-      
-      <div className="assessment-history">
-        <h2>Assessment History</h2>
-        {assessmentHistory.length === 0 ? (
-          <p className="no-data-message">No assessment data available yet. Take your first assessment!</p>
-        ) : (
-          <div className="chart-container">
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart
-                data={assessmentHistory}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip 
-                  formatter={(value, name) => [value, 'Score']}
-                  labelFormatter={(label) => `${label} (${assessmentHistory.find(item => item.name === label)?.date})`}
-                />
-                <Legend />
-                <Line 
-                  type="monotone" 
-                  dataKey="score" 
-                  stroke="#8884d8" 
-                  activeDot={{ r: 8 }} 
-                  name="Assessment Score"
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        )}
-      </div>
-      
-      <div className="assessment-actions">
-        <button 
-          className="start-assessment-btn" 
-          onClick={handleStartNewAssessment}
-        >
-          Start New Assessment
-        </button>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Dashboard;

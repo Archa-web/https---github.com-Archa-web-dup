@@ -85,6 +85,14 @@ const Result = () => {
                     >
                         Take Another Assessment
                     </motion.button>
+                    <motion.button 
+                        className="result-btn result-btn-secondary text-light"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => navigate("/dashboard")}
+                    >
+                        Dashboard
+                    </motion.button>
                 </motion.div>
             </motion.div>
         </motion.div>

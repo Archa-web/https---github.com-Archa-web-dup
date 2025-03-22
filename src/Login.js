@@ -47,7 +47,8 @@ const Login = () => {
                         confirmButton: 'btn btn-lg btn-primary mt-4' // Add custom class for confirm button
                         
                     },
-                    iconHtml: '<i class="fas fa-check-circle" style="color: #00FF00;"></i>'                }).then(() => {
+                    iconHtml: '<i class="fas fa-check-circle" style="color: #00FF00;"></i>'                
+                }).then(() => {
                         navigate('/dashboard'); // Redirect after success
                 });
             } else {
