@@ -1,7 +1,7 @@
 /* Login.css */
 
-/* Background Styling */
-.container-fluid {
+/* Home container styling to match Home.css */
+.home-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -11,18 +11,21 @@
   padding: 20px;
 }
 
+/* Background Styling - removing container-fluid styles */
 .card-1 {
   background: rgba(28, 36, 47, 0.95);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(10px);              
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  border-radius: 20px !important; /* Added !important */
 }
 
 .login-box {
   width: 600px;
   background: rgba(28, 36, 47, 0.95);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  border-radius: 20px !important; /* Added !important */
 }
 
 .gradient-background {
@@ -47,11 +50,12 @@
 .btn-primary {
   background: linear-gradient(to right, #4b6cb7, #182848);
   color: #ffffff;
-  padding: 14px 40px;
+  padding: 14px 20px;
   font-weight: 500;
   border: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
+  text-align: center;
 }
 
 .btn-primary:hover {

@@ -55,6 +55,7 @@
     border-radius: 50px;
     font-weight: 600;
     transition: all 0.3s ease;
+    min-width: 180px; /* Ensure consistent button width */
 }
 
 .recommendation-btn:hover {
@@ -145,6 +146,8 @@
     .recommendation-btn {
         padding: 12px 24px;
         font-size: 1rem;
+        margin-bottom: 10px;
+        width: 100%;
     }
     
     .chatbot-container {

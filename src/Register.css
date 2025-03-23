@@ -1,22 +1,14 @@
 /* Register.css */
 
-/* Background Styling - Fix for full coverage */
-.container-fluid {
+/* Home container styling to match Home.css */
+.home-container {
   min-height: 100vh;
-  width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-image: linear-gradient(to right, #141E30, #243B55);
   color: #e0e0e0;
-  padding: 50px 20px;
-  margin: 0;
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  padding: 20px;
 }
 
 .fw-bold {
@@ -30,9 +22,9 @@
 }
 
 .register-box {
-  width: 400px;
+  width: 500px; /* Increased width to accommodate side-by-side fields */
   background: rgba(28, 36, 47, 0.95) !important;
-  border-radius: 20px;
+  border-radius: 20px !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
 }
 
@@ -85,4 +77,20 @@ body, html {
 /* Fix for modal content background */
 .modal-content {
   background: rgba(28, 36, 47, 0.95) !important;
+  border-radius: 20px !important;
+}
+
+/* Make sure error messages don't disrupt layout */
+.text-danger {
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  height: 1rem;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .register-box {
+    width: 90%;
+    max-width: 500px;
+  }
 }

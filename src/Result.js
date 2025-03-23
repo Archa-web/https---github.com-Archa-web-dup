@@ -189,18 +189,7 @@ const Result = () => {
                     >
                         <motion.button 
                             className="result-btn rounded-pill py-2 px-3 fs-6 fw-semibold border-0 text-white w-100 w-md-auto d-flex flex-column align-items-center justify-content-center"
-                            style={{ maxWidth: '220px', height: '60px' }}
-                            onClick={() => navigate("/dashboard")}
-                            variants={itemVariants}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <span>View</span>
-                            <span>Dashboard</span>
-                        </motion.button>
-                        <motion.button 
-                            className="result-btn rounded-pill py-2 px-3 fs-6 fw-semibold border-0 text-white w-100 w-md-auto d-flex flex-column align-items-center justify-content-center"
-                            style={{ maxWidth: '220px', height: '60px' }}
+                            style={{ maxWidth: '250px', height: '60px' }}
                             onClick={() => navigate("/recommendation", { state: { level } })}
                             variants={itemVariants}
                             whileHover={{ scale: 1.05 }}
@@ -211,7 +200,7 @@ const Result = () => {
                         </motion.button>
                         <motion.button 
                             className="result-btn rounded-pill py-2 px-3 fs-6 fw-semibold border-0 text-white w-100 w-md-auto d-flex flex-column align-items-center justify-content-center"
-                            style={{ maxWidth: '220px', height: '60px' }}
+                            style={{ maxWidth: '250px', height: '60px' }}
                             onClick={() => navigate("/")}
                             variants={itemVariants}
                             whileHover={{ scale: 1.05 }}

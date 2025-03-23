@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Login.css";
-import { Link } from "react-router-dom";
 import { motion } from 'framer-motion';
 import "animate.css";
 
@@ -14,6 +13,22 @@ const Login = () => {
         password: "",
     });
     const [errors, setErrors] = useState({});
+
+    // Enhanced controller animation configuration (copied from Home.js)
+    const controllerAnimation = {
+        animate: {
+            rotate: [0, -4, 2, -2, 4, 0],
+            y: [0, -5, 2, -3, 1, 0],
+            scale: [1, 1.05, 1.02, 1.07, 1.03, 1],
+            transition: {
+                duration: 3.5,
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: [0.45, 0.05, 0.55, 0.95], // Custom easing for more natural movement
+                times: [0, 0.2, 0.4, 0.6, 0.8, 1] // Control timing of keyframes
+            }
+        }
+    };
 
     // Function to validate input fields
     const validateForm = () => {
@@ -54,6 +69,29 @@ const Login = () => {
             const data = await response.json();
 
             if (response.ok) {
+                // Get the current user's username
+                const username = data.username;
+                
+                // Store username in localStorage for dashboard display
+                localStorage.setItem('username', username);
+                
+                // Load user-specific data from localStorage
+                const allUserData = JSON.parse(localStorage.getItem('allUsersData') || '{}');
+                
+                // Get this user's specific data if it exists
+                const userData = allUserData[username] || {
+                    assessmentResults: [],
+                    lastAssessmentResult: null
+                };
+                
+                // Set the user's data for the dashboard to use
+                localStorage.setItem('assessmentResults', JSON.stringify(userData.assessmentResults || []));
+                if (userData.lastAssessmentResult) {
+                    localStorage.setItem('lastAssessmentResult', JSON.stringify(userData.lastAssessmentResult));
+                } else {
+                    localStorage.removeItem('lastAssessmentResult');
+                }
+                
                 Swal.fire({
                     title: "Login Successful!",
                     text: "Welcome to the gaming community!",
@@ -90,19 +128,37 @@ const Login = () => {
     };
 
     return (
-        <div className="container-fluid vh-100 animate__animated animate__fadeIn position-relative animate__slower animate__delay-0.5s" >
-            <header className="position-absolute top-0 start-0 m-4 animate__animated animate__bounceInLeft animate__delay-2s">
-                <h1 className="fw-bold text-light" style={{ fontSize: "2.8rem" }}>Game Aware</h1>
-            </header>
-            <div className="d-flex flex-row align-items-center justify-content-center h-100">
-                <div className="me-5 animate__animated animate__fadeInLeft animate__slow animate__delay-1s">
-                    <h2 className="fw-bold text-light " style={{ fontSize: "2.5rem" }}>Login</h2>
-                    <p className="animate__animated text-light animate__pulse animate__infinite">Sign in now to be a part of our healthy gaming community</p>
-                </div>
-                <div className="login-box card-1 p-4 shadow-lg rounded text-light animate__animated animate__fadeInRight animate__slow animate__delay-1s" style={{ width: "30rem"}}>
+        <div className="home-container animate__animated animate__fadeIn position-relative animate__slower animate__delay-0.5s">
+            <div className="d-flex flex-column align-items-center justify-content-center h-100">
+                {/* Login box that now includes the title, game controller icon, and message */}
+                <div className="login-box card-1 p-4 shadow-lg rounded text-light animate__animated animate__fadeInUp animate__slow animate__delay-1s" style={{ width: "30rem"}}>
+                    {/* GameAware heading and controller icon */}
+                    <div className="text-center mb-4">
+                        <h1 className="display-3 fw-bold text-light">GameAware</h1>
+                        <div className="icon-container">
+                            <motion.i 
+                                className="bi bi-controller display-4 text-secondary"
+                                initial={{ opacity: 0, scale: 0.5 }}
+                                animate={{ 
+                                    opacity: 1, 
+                                    scale: 1,
+                                    ...controllerAnimation.animate
+                                }}
+                            ></motion.i>
+                        </div>
+                    </div>
+                    
+                    {/* Login title and message */}
+                    <div className="text-center mb-4 animate__animated animate__fadeInDown animate__slow">
+                        <h2 className="fw-bold text-light" style={{ fontSize: "2rem" }}>Login</h2>
+                        <p className="animate__animated text-light animate__pulse animate__infinite">
+                            Sign in now to be a part of our healthy gaming community
+                        </p>
+                    </div>
+                    
                     <form className="form-login" onSubmit={handleLogin}>
                         <div className="mb-3 animate__animated animate__zoomIn animate__delay-1s">
-                            <label className="form-label fw-bold" style={{ fontSize: "1.4rem" }}>Email/Username</label>
+                            <label className="form-label fw-bold" style={{ fontSize: "1.2rem" }}>Email/Username</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -114,7 +170,7 @@ const Login = () => {
                             {errors.usernameOrEmail && <p className="text-danger">{errors.usernameOrEmail}</p>}
                         </div>
                         <div className="mb-3 animate__animated animate__zoomIn animate__delay-1s">
-                            <label className="form-label fw-bold" style={{ fontSize: "1.4rem" }}>Password</label>
+                            <label className="form-label fw-bold" style={{ fontSize: "1.2rem" }}>Password</label>
                             <input
                                 type="password"
                                 className="form-control"
@@ -125,15 +181,12 @@ const Login = () => {
                             />
                             {errors.password && <p className="text-danger">{errors.password}</p>}
                         </div>
-                        <div className="text-start mb-3 animate__animated animate__fadeIn animate__delay-2s">
-                            <Link to="/email-input" className="text-decoration-none text-primary">Forgot password?</Link>
-                        </div>
-                        <div className="d-flex gap-2 animate__animated animate__fadeInUp animate__delay-2s">
+                        <div className="d-flex justify-content-between animate__animated animate__fadeInUp animate__delay-2s">
                             <motion.button
                                 type="button"
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="btn btn-lg btn-primary mt-4"
+                                className="btn btn-primary mt-4 w-100 me-2"
                                 onClick={() => navigate("/register")}
                             >
                                 Sign Up
@@ -142,7 +195,7 @@ const Login = () => {
                                 type="submit"
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="btn btn-lg btn-primary mt-4"
+                                className="btn btn-primary mt-4 w-100 ms-2"
                             >
                                 Login
                             </motion.button>
