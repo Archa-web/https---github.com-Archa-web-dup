@@ -88,7 +88,7 @@ const Register = () => {
   };
 
   return (
-    <div className="container-fluid d-flex flex-column align-items-center justify-content-center vh-100">
+    <div className="container-fluid d-flex flex-column align-items-center justify-content-center vh-100" >
       <motion.header
         className="d-flex justify-content-between w-100 p-3"
         initial={{ opacity: 0, y: -50 }}
@@ -97,7 +97,7 @@ const Register = () => {
       >
         <h4 className="fw-bold text-light" style={{ fontSize: "2.5rem" }}>Game Aware</h4>
       </motion.header>
-      <div className="d-flex justify-content-center align-items-center w-100">
+      <div className="d-flex justify-content-center align-items-center w-100\">
         <motion.div
           className="register-info me-5"
           initial={{ opacity: 0, x: -50 }}

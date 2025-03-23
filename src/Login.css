@@ -1,39 +1,67 @@
 /* Login.css */
 
+/* Background Styling */
 .container-fluid {
-  background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
-  
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to right, #141E30, #243B55);
+  color: #e0e0e0;
+  padding: 20px;
 }
 
 .card-1 {
-  background: rgba(255, 255, 255, 0.15);     
-  border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  background: rgba(28, 36, 47, 0.95);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(10px);              
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
 }
 
 .login-box {
   width: 600px;
-background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
+  background: rgba(28, 36, 47, 0.95);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
 }
 
 .gradient-background {
-    background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
-    color: white;
+  background-image: linear-gradient(to right, #141E30, #243B55);
+  color: white;
 }
 
 .mb-5 {
   font-size: 40px;
+  color: #cfd8dc;
 }
 
 .form-label {
   font-size: 0.9rem;
+  color: #cfd8dc;
 }
 
 .w-45 {
   width: 48%;
+}
+
+.btn-primary {
+  background: linear-gradient(to right, #4b6cb7, #182848);
+  color: #ffffff;
+  padding: 14px 40px;
+  font-weight: 500;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to right, #182848, #4b6cb7);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  transform: translateY(-3px);
+}
+
+.btn-primary:active {
+  transform: translateY(2px);
 }
 
 .swal-confirm {

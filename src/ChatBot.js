@@ -7,6 +7,7 @@ const ChatBot = ({ level, doctor = null }) => {
     { text: `Hello! I'm your Gaming Addiction Assistant. How can I help you learn more about ${level || 'gaming addiction'}?`, sender: 'bot' }
   ]);
   const [inputValue, setInputValue] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
   
   // Knowledge base for different addiction levels
@@ -105,9 +106,9 @@ const ChatBot = ({ level, doctor = null }) => {
       return relevantKnowledge.tips;
     } else if (lowerCaseMessage.includes('risk') || lowerCaseMessage.includes('danger') || lowerCaseMessage.includes('problem')) {
       return relevantKnowledge.risks;
-    } else if (lowerCaseMessage.includes('alternative') || lowerCaseMessage.includes('activity') || lowerCaseMessage.includes('instead') || lowerCaseMessage.includes('hobby')) {
+    } else if (lowerCaseMessage.includes('alternative') || lowerCaseMessage.includes('activity') || lowerCaseMessage.includes('instead') || lowerCaseMessage.includes('hobby') || lowerCaseMessage.includes('hobbies')) {
       return relevantKnowledge.activities;
-    } else if (lowerCaseMessage.includes('hello') || lowerCaseMessage.includes('hi')) {
+    } else if (lowerCaseMessage.includes('hello') || lowerCaseMessage.includes('hi')||lowerCaseMessage.includes('hey')) {
       return `Hello! I'm here to help with information about ${level || 'gaming addiction'}. Feel free to ask about symptoms, management tips, risks, or alternative activities.`;
     } else {
       return `I'm not sure I understand. You can ask about ${level || 'gaming addiction'}, symptoms, management tips, risks, alternative activities, or information about finding professional help.`;
@@ -124,25 +125,50 @@ const ChatBot = ({ level, doctor = null }) => {
     setMessages(newMessages);
     setInputValue('');
     
+    // Show typing indicator
+    setIsTyping(true);
+    
     // Add bot response after a short delay
     setTimeout(() => {
+      setIsTyping(false);
       const botResponse = generateResponse(inputValue);
       setMessages(current => [...current, { text: botResponse, sender: 'bot' }]);
-    }, 800);
+    }, 1200);
   };
 
   // Auto-scroll to bottom of chat when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, isTyping]);
+
+  // Close chatbot when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const chatbotDialog = document.querySelector('.chatbot-dialog');
+      const chatbotButton = document.querySelector('.chatbot-button');
+      
+      if (isOpen && 
+          chatbotDialog && 
+          chatbotButton && 
+          !chatbotDialog.contains(event.target) && 
+          !chatbotButton.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
     <div className="chatbot-container">
-      
       {/* Chatbot button */}
       <button 
         className={`chatbot-button ${isOpen ? 'active' : ''}`}
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? "Close chat" : "Open chat"}
       >
         <i className={`bi ${isOpen ? 'bi-x-lg' : 'bi-chat-dots-fill'}`}></i>
       </button>
@@ -150,7 +176,7 @@ const ChatBot = ({ level, doctor = null }) => {
       {/* Chatbot dialog */}
       <div className={`chatbot-dialog ${isOpen ? 'open' : ''}`}>
         <div className="chatbot-header">
-          <h3 className='fw-bold'>Gaming Addiction Assistant</h3>
+          <h3>Gaming Addiction Assistant</h3>
         </div>
         <div className="chatbot-messages">
           {messages.map((message, index) => (
@@ -158,6 +184,13 @@ const ChatBot = ({ level, doctor = null }) => {
               {message.text}
             </div>
           ))}
+          {isTyping && (
+            <div className="typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          )}
           <div ref={messagesEndRef} />
         </div>
         <form className="chatbot-input" onSubmit={handleSendMessage}>
@@ -166,8 +199,9 @@ const ChatBot = ({ level, doctor = null }) => {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Ask about gaming addiction..."
+            aria-label="Type your message"
           />
-          <button type="submit">
+          <button type="submit" aria-label="Send message">
             <i className="bi bi-send-fill"></i>
           </button>
         </form>

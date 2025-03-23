@@ -32,6 +32,25 @@ const Result = () => {
         return () => clearTimeout(timer);
     }, []);
 
+    // Save result to localStorage for Dashboard
+    useEffect(() => {
+        // Save the latest result to localStorage
+        const resultData = {
+            total_score,
+            level,
+            percentage: parseFloat(percentage),
+            timestamp: new Date().toISOString()
+        };
+        
+        localStorage.setItem('lastAssessmentResult', JSON.stringify(resultData));
+        
+        // Also update the history
+        const storedResults = localStorage.getItem('assessmentResults');
+        let resultsHistory = storedResults ? JSON.parse(storedResults) : [];
+        resultsHistory.push(resultData);
+        localStorage.setItem('assessmentResults', JSON.stringify(resultsHistory));
+    }, [total_score, level, percentage]);
+
     // Animate percentage counter
     useEffect(() => {
         if (!loading) {
@@ -162,35 +181,45 @@ const Result = () => {
                     </motion.p>
 
                     <motion.div 
-                    className="result-buttons"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5, duration: 0.5 }}
-                >
+                        className="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3 mt-4"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                        transition={{ delayChildren: 1.3, staggerChildren: 0.2 }}
+                    >
                         <motion.button 
-                        className="result-btn result-btn-primary text-light"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => navigate("/recommendation", { state: { level } })}
-                    >
-                        View Recommendations
-                    </motion.button>
-                    <motion.button 
-                        className="result-btn result-btn-secondary text-light"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => navigate("/select-age-group")}
-                    >
-                        Take Another Assessment
-                    </motion.button>
-                    <motion.button 
-                        className="result-btn result-btn-secondary text-light"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => navigate("/dashboard")}
-                    >
-                        Dashboard
-                    </motion.button>
+                            className="result-btn rounded-pill py-2 px-3 fs-6 fw-semibold border-0 text-white w-100 w-md-auto d-flex flex-column align-items-center justify-content-center"
+                            style={{ maxWidth: '220px', height: '60px' }}
+                            onClick={() => navigate("/dashboard")}
+                            variants={itemVariants}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <span>View</span>
+                            <span>Dashboard</span>
+                        </motion.button>
+                        <motion.button 
+                            className="result-btn rounded-pill py-2 px-3 fs-6 fw-semibold border-0 text-white w-100 w-md-auto d-flex flex-column align-items-center justify-content-center"
+                            style={{ maxWidth: '220px', height: '60px' }}
+                            onClick={() => navigate("/recommendation", { state: { level } })}
+                            variants={itemVariants}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <span>View</span>
+                            <span>Recommendations</span>
+                        </motion.button>
+                        <motion.button 
+                            className="result-btn rounded-pill py-2 px-3 fs-6 fw-semibold border-0 text-white w-100 w-md-auto d-flex flex-column align-items-center justify-content-center"
+                            style={{ maxWidth: '220px', height: '60px' }}
+                            onClick={() => navigate("/")}
+                            variants={itemVariants}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <span>Take Another</span>
+                            <span>Assessment</span>
+                        </motion.button>
                     </motion.div>
                 </motion.div>
             )}

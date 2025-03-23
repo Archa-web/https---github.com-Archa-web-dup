@@ -24,11 +24,11 @@ const Recommendation = () => {
     "Low Addiction": {
       advice: "Maintain a healthy balance.",
       details: "You have a balanced approach to gaming. Keep enjoying, but balance it with work, social life, and physical activities.",
-      youtube: "https://youtu.be/2Y8H9vD3aZ8?si=hoLh7hxSwSSVY0GF",
+      youtube: "https://youtu.be/gZOcLix4PGc?si=dmSW7hhv2PxfGQpk",
       doctor: {
         name: "Dr. John Doe",
         phone: "(123) 456-7890",
-        email: "johs@example.com",
+        email: "john.doe@example.com",
         specialty: "Behavioral Psychology",
         experience: "10+ years of experience in digital wellness",
         approach: "Focuses on balanced technology use and healthy habits",
@@ -41,7 +41,7 @@ const Recommendation = () => {
     "Moderate Addiction": {
       advice: "Consider setting boundaries.",
       details: "Gaming may be taking up more of your time than it should. Set clear time limits and prioritize other activities.",
-      youtube: "https://youtu.be/D0JafEWu-lg?si=zgI-PxJwJ1PizTID",
+      youtube: "https://youtu.be/gZOcLix4PGc?si=KmP7VrfuPslbprBF",
       doctor: {
         name: "Dr. Jane Smith",
         phone: "(987) 654-3210",
@@ -58,7 +58,7 @@ const Recommendation = () => {
     "High Addiction": {
       advice: "Reduce screen time and seek balance.",
       details: "Your gaming is significantly impacting other parts of your life. Start reducing screen time and explore alternative hobbies.",
-      youtube: "https://youtu.be/u3avMv4v-j0?si=b0qBbC3mUJWU2_Ff",
+      youtube: "https://youtu.be/VzL2A5l-eVU?si=aR2Z3Gs5sBLSGG63",
       doctor: {
         name: "Dr. Emily Johnson",
         phone: "(555) 123-4567",
@@ -75,7 +75,7 @@ const Recommendation = () => {
     "Severe Addiction": {
       advice: "Seek professional help immediately.",
       details: "Your gaming habits are seriously impacting your daily life. Please seek professional help to regain balance.",
-      youtube: "https://youtu.be/hBC7i-vHWsU?si=vpT0lQvVatoQrHNr",
+      youtube: "https://www.youtube.com/embed/example4",
       doctor: {
         name: "Dr. Michael Brown",
         phone: "(444) 987-6543",
@@ -268,24 +268,38 @@ const Recommendation = () => {
               <div className="contact-methods p-3 mb-4" style={{ background: "rgba(20, 30, 48, 0.5)", borderRadius: "10px" }}>
                 <h5 className="text-secondary mb-3">Contact Methods</h5>
                 <div className="row">
-                  <div className="col-md-6 mb-3 mb-md-0">
+                  <div className="col-md-4 mb-3 mb-md-0">
                     <div className="contact-method-card p-3 text-center h-100" style={{ background: "rgba(20, 30, 48, 0.7)", borderRadius: "8px" }}>
                       <i className="bi bi-telephone-fill text-primary fs-2 mb-3"></i>
-                      <h6 className="fw-bold mb-2">Phone</h6>
-                      <a href={`tel:${recommendation.doctor.phone}`} className="d-block text-decoration-none text-white fw-bold" style={{fontSize: "1.5rem"}}>
+                      <h6 className="fw-bold mb-2"style={{fontSize: "2rem"}}>Phone</h6>
+                      <a href={`tel:${recommendation.doctor.phone}`} className="d-block text-decoration-none text-white fw-bold"style={{fontSize: "1rem"}}>
                         {recommendation.doctor.phone}
                       </a>
                       <p className="small text-secondary mt-2 mb-0">Best for urgent inquiries</p>
                     </div>
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-4 mb-3 mb-md-0">
                     <div className="contact-method-card p-3 text-center h-100" style={{ background: "rgba(20, 30, 48, 0.7)", borderRadius: "8px" }}>
                       <i className="bi bi-envelope-fill text-primary fs-2 mb-3"></i>
-                      <h6 className="fw-bold mb-2">Email</h6>
-                      <a href={`mailto:${recommendation.doctor.email}`} className="d-block text-decoration-none text-white fw-bold" style={{fontSize: "1.5rem"}}>
+                      <h6 className="fw-bold mb-2"style={{fontSize: "2rem"}}>Email</h6>
+                      <a href={`mailto:${recommendation.doctor.email}`} className="d-block text-decoration-none text-white fw-bold"style={{fontSize: "1rem"}}>
                         {recommendation.doctor.email}
                       </a>
                       <p className="small text-secondary mt-2 mb-0">For detailed inquiries</p>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="contact-method-card p-3 text-center h-100" style={{ background: "rgba(20, 30, 48, 0.7)", borderRadius: "8px" }}>
+                      <i className="bi bi-calendar-check-fill text-primary fs-2 mb-3"></i>
+                      <h6 className="fw-bold mb-2"style={{fontSize: "2rem"}}>Online Booking</h6>
+                      <button 
+                        onClick={() => setShowAppointmentForm(true)} 
+                        className="btn btn-primary btn-sm"
+                        style={{ background: "linear-gradient(to right, #4b6cb7, #182848)", border: "none", fontSize: "1rem" }}
+                      >
+                        Schedule a Visit
+                      </button>
+                      <p className="small text-secondary mt-2 mb-0">Quick appointment setup</p>
                     </div>
                   </div>
                 </div>
@@ -322,7 +336,7 @@ const Recommendation = () => {
           </div>
         )}
 
-        {/* Appointment Form Modal - keeping for existing functionality */}
+        {/* Appointment Form Modal */}
         {showAppointmentForm && (
           <div className="appointment-modal" style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "rgba(0,0,0,0.8)", zIndex: 1050, display: "flex", alignItems: "center", justifyContent: "center" }}>
             <div className="modal-content p-4" style={{ background: "rgba(28, 36, 47, 0.95)", borderRadius: "15px", width: "90%", maxWidth: "600px", maxHeight: "90vh", overflow: "auto" }}>
@@ -445,9 +459,9 @@ const Recommendation = () => {
 
         {/* Navigation Buttons */}
         <div className="d-flex justify-content-center gap-3 mt-4 flex-wrap">
-          <button className="recommendation-btn recommendation-btn-outline d-flex align-items-center gap-2" onClick={() => navigate("/dashboard")}>
+          <button className="recommendation-btn recommendation-btn-outline d-flex align-items-center gap-2" onClick={() => navigate("/")}>
             <i className="bi bi-house-door-fill"></i>
-            Dashboard
+            Home
           </button>
           <button className="recommendation-btn recommendation-btn-primary d-flex align-items-center gap-2" onClick={() => window.history.back()}>
             <i className="bi bi-arrow-left-circle-fill"></i>

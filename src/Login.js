@@ -90,7 +90,7 @@ const Login = () => {
     };
 
     return (
-        <div className="container-fluid vh-100 animate__animated animate__fadeIn position-relative animate__slower animate__delay-0.5s" style={{ backgroundImage: 'linear-gradient(to right, #1c1c1c, #2c3e50)' }}>
+        <div className="container-fluid vh-100 animate__animated animate__fadeIn position-relative animate__slower animate__delay-0.5s" >
             <header className="position-absolute top-0 start-0 m-4 animate__animated animate__bounceInLeft animate__delay-2s">
                 <h1 className="fw-bold text-light" style={{ fontSize: "2.8rem" }}>Game Aware</h1>
             </header>
@@ -99,7 +99,7 @@ const Login = () => {
                     <h2 className="fw-bold text-light " style={{ fontSize: "2.5rem" }}>Login</h2>
                     <p className="animate__animated text-light animate__pulse animate__infinite">Sign in now to be a part of our healthy gaming community</p>
                 </div>
-                <div className="login-box card-1 p-4 shadow-lg rounded text-light animate__animated animate__fadeInRight animate__slow animate__delay-1s" style={{ width: "25rem" }}>
+                <div className="login-box card-1 p-4 shadow-lg rounded text-light animate__animated animate__fadeInRight animate__slow animate__delay-1s" style={{ width: "30rem"}}>
                     <form className="form-login" onSubmit={handleLogin}>
                         <div className="mb-3 animate__animated animate__zoomIn animate__delay-1s">
                             <label className="form-label fw-bold" style={{ fontSize: "1.4rem" }}>Email/Username</label>

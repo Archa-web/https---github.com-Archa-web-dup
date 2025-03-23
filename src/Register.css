@@ -1,28 +1,88 @@
+/* Register.css */
 
+/* Background Styling - Fix for full coverage */
 .container-fluid {
   min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, #141E30, #243B55);
-  padding: 20px;
+  background-image: linear-gradient(to right, #141E30, #243B55);
+  color: #e0e0e0;
+  padding: 50px 20px;
+  margin: 0;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
-  .fw-bold{
-font-size: 40px;  
+
+.fw-bold {
+  font-size: 40px;
+  color: #cfd8dc;
+  text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
 }
-  .register-info {
-    max-width: 350px;
-  }
-  
-  .register-box {
-    width: 400px;
-background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
-  }
-  
+
+.register-info {
+  max-width: 350px;
+}
+
+.register-box {
+  width: 400px;
+  background: rgba(28, 36, 47, 0.95) !important;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.btn-primary {
+  background: linear-gradient(to right, #4b6cb7, #182848) !important;
+  color: #ffffff;
+  padding: 14px 40px;
+  font-weight: 500;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to right, #182848, #4b6cb7) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  transform: translateY(-3px);
+}
+
+.btn-primary:active {
+  transform: translateY(2px);
+}
+
 .modal-header,
 .modal-body,
-.modal-footer
-{
-  background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
+.modal-footer {
+  background: rgba(28, 36, 47, 0.95);
+  color: #cfd8dc;
+}
+
+/* Remove redundant selector and use a simpler one */
+.register-box {
+  background: rgba(28, 36, 47, 0.95) !important;
+  background-image: none !important;
+}
+
+/* Apply proper styling to form inputs and labels */
+.form-label {
+  color: #cfd8dc;
+}
+
+/* Ensure body fills the entire viewport */
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Fix for modal content background */
+.modal-content {
+  background: rgba(28, 36, 47, 0.95) !important;
 }

@@ -1,53 +1,110 @@
-/* SelectAgeGroup.css */
-
-/* Container Styling */
-.container-fluid {
+.select-age-container {
     min-height: 100vh;
+    background-image: linear-gradient(to right, #141E30, #243B55);
+    color: #e0e0e0;
+    padding: 50px 20px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
-    padding: 30px;
 }
 
-
-.age-box
-{
-    background-image: linear-gradient(to right, #1c1c1c, #2c3e50);
-  
-}
-/* Card Styling */
-.card {
-    border-radius: 12px;
-    background-color: #ffffff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    padding: 20px;
+.select-age-card {
+    max-width: 600px;
+    width: 100%;
+    background: rgba(28, 36, 47, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    text-align: center;
 }
 
-
-/* Input Styling */
-.form-control {
-    width: 80%; /* Adjust the width of the input */
-    max-width: 400px; /* Set a maximum width for the input */
-    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Semi-transparent border */
-    border-radius: 20px; /* Curve the sides of the input */
-    padding: 10px;
-    color: #fff; /* Text color */
-    margin-bottom: 15px;
+.select-age-title {
+    font-size: 2.5rem;
+    color: #cfd8dc;
+    font-weight: 700;
+    margin-bottom: 20px;
 }
-/* Warning Message */
+
+.text-secondary {
+    color: #b0bec5 !important;
+}
+
 .warning {
-    color: #dc3545;
+    color: #ff6b6b;
     font-size: 1rem;
     font-weight: bold;
 }
 
-/* Transition Effect */
-button, input {
+.age-input {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    border: 1px solid #3b4754;
+    padding: 12px;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    /* Remove spinner buttons - comprehensive approach */
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: none;
+    margin: 0;
+}
+
+/* Additional comprehensive approach to remove spinner buttons */
+/* For Webkit browsers like Chrome, Safari */
+.age-input::-webkit-outer-spin-button,
+.age-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+/* For Firefox */
+.age-input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* For Edge and IE */
+.age-input::-ms-clear,
+.age-input::-ms-reveal {
+    display: none;
+}
+
+.age-input::placeholder {
+    color: #b0bec5;
+}
+
+.age-input:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: #4b6cb7;
+    color: #fff;
+}
+
+.age-btn {
+    padding: 14px 32px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    background: linear-gradient(to right, #4b6cb7, #182848);
+    color: #fff;
+    border: none;
+    font-weight: 600;
     transition: all 0.3s ease;
+}
+
+.age-btn:hover {
+    background: linear-gradient(to right, #182848, #4b6cb7);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+    .select-age-title {
+        font-size: 2rem;
+    }
+
+    .age-btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
 }
